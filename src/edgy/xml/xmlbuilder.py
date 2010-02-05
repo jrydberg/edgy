@@ -53,6 +53,7 @@ ns.tag(a='5') == Element(QName('http://namespace/uri', 'tag', a='5')
 #from elementtree import ElementTree 
 from edgy.xml.element import (Element as basefactory, iselement,
                               QName, _namespace_map)
+from edgy.xml.utils import splitTag
 
 __all__ = 'Element', 'Namespace', 'LocalNamespace'
 
@@ -130,7 +131,11 @@ class Namespace:
         if location is None:
             location = uri
         self.location = location
-    
+
+    def __contains__(self, qn):
+        nsuri, tag = splitTag(str(qn))
+        return (nsuri == self.uri)
+        
     def __add__(self, tag):
         if self.uri is None:
             return LocalName(tag)
