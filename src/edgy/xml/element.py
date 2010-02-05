@@ -31,6 +31,9 @@ class Element(ET._ElementInterface):
         ET._ElementInterface.append(self, element)
         self.adapt(element)
 
+    def index(self, element):
+        return self._children.index(element)
+
     def insert(self, index, element):
         ET._ElementInterface.insert(self, index, element)
         self.adapt(element)
